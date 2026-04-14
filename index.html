@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estate Threads | Weaving Wealth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --rich-black: #050505; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--rich-black); color: white; scroll-behavior: smooth; }
+        .font-heading { font-family: 'Playfair Display', serif; }
+        .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-gold { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); transition: all 0.3s ease; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="p-6 flex justify-between items-center border-b border-zinc-800 sticky top-0 bg-black/80 backdrop-blur-md z-50">
+        <div class="text-2xl font-heading font-bold tracking-tighter">
+            ESTATE <span class="gold-gradient">THREADS</span>
+        </div>
+        <button class="border border-gold-500 text-gold-500 px-6 py-2 rounded-full text-sm font-semibold hover:bg-gold-500 hover:text-black transition">
+            Dashboard
+        </button>
+    </nav>
+
+    <header class="py-20 px-6 text-center max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-7xl font-heading mb-6 leading-tight">Weaving wealth through <br><span class="gold-gradient">real estate.</span></h1>
+        <p class="text-zinc-400 text-lg mb-10 font-light italic">"Premium fractional ownership for the modern Nigerian investor."</p>
+        <a href="#listings" class="btn-gold text-black px-12 py-4 rounded-xl font-bold uppercase tracking-widest text-sm">Explore Properties</a>
+    </header>
+
+    <section class="max-w-6xl mx-auto px-6 mb-20 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+            <p class="text-zinc-500 text-xs uppercase tracking-widest mb-2">Minimum Entry</p>
+            <h2 class="text-3xl font-bold text-gold-500">₦2,000</h2>
+        </div>
+        <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+            <p class="text-zinc-500 text-xs uppercase tracking-widest mb-2">Active Investors</p>
+            <h2 class="text-3xl font-bold">1,240+</h2>
+        </div>
+        <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+            <p class="text-zinc-500 text-xs uppercase tracking-widest mb-2">Avg. Annual ROI</p>
+            <h2 class="text-3xl font-bold text-green-500">18.5%</h2>
+        </div>
+    </section>
+
+    <section id="listings" class="max-w-6xl mx-auto px-6 pb-20">
+        <h2 class="text-3xl font-heading mb-10">Available Assets</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 group hover:border-gold-500 transition-all duration-500">
+                <div class="h-64 bg-zinc-800 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                    <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-gold-500 px-3 py-1 rounded-full text-xs font-bold uppercase">15% ROI</span>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-heading mb-2">The Eko Thread Towers</h3>
+                    <p class="text-zinc-500 text-sm mb-6">Victoria Island, Lagos</p>
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <p class="text-zinc-500 text-xs uppercase mb-1">Share Price</p>
+                            <p class="text-2xl font-bold text-white">₦15,000</p>
+                        </div>
+                        <button onclick="openModal('The Eko Thread Towers', 15000)" class="btn-gold text-black px-6 py-2 rounded-full text-sm font-bold">Invest</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <div id="invest-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] hidden flex items-center justify-center p-6">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-3xl p-8 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-2xl">&times;</button>
+            <h2 class="text-2xl font-heading mb-2" id="modal-title">Secure Your Shares</h2>
+            <p class="text-zinc-400 text-sm mb-8">Asset: <span id="property-name" class="text-gold-500 font-bold"></span></p>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs uppercase text-zinc-500 mb-2 font-bold tracking-widest">Amount to Invest (₦)</label>
+                    <input type="number" id="invest-amount" placeholder="Min ₦2,000" class="w-full bg-black border border-zinc-800 rounded-xl p-4 text-white focus:outline-none focus:border-gold-500 transition text-lg font-bold">
+                    <p id="error-msg" class="text-red-500 text-xs mt-2 hidden">⚠️ Minimum investment is ₦2,000</p>
+                </div>
+
+                <div class="bg-zinc-800/40 p-6 rounded-2xl border border-gold-500/20">
+                    <p class="text-[10px] uppercase text-gold-500 mb-3 font-bold tracking-widest">Official Payment Details</p>
+                    <div class="space-y-1">
+                        <p class="text-sm font-semibold">Bank: <span class="text-white">Momo PSB</span></p>
+                        <p class="text-lg font-bold tracking-wider text-white">Account: 704 705 6423</p>
+                        <p class="text-sm font-semibold">Name: <span class="text-white">Estate Threads Limited</span></p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase text-zinc-500 mb-2 font-bold tracking-widest">Upload Receipt</label>
+                    <input type="file" class="text-xs text-zinc-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-zinc-800 file:text-gold-500 hover:file:bg-zinc-700">
+                </div>
+
+                <button onclick="submitInvestment()" class="w-full btn-gold text-black py-4 rounded-xl font-bold uppercase tracking-widest text-sm shadow-lg">Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const formatter = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0 });
+
+        function openModal(name, price) {
+            document.getElementById('invest-modal').classList.remove('hidden');
+            document.getElementById('property-name').innerText = name;
+            document.getElementById('invest-amount').value = price;
+        }
+
+        function closeModal() {
+            document.getElementById('invest-modal').classList.add('hidden');
+            document.getElementById('error-msg').classList.add('hidden');
+        }
+
+        function submitInvestment() {
+            const amount = document.getElementById('invest-amount').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            if (amount < 2000) {
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            errorMsg.classList.add('hidden');
+            alert(`Payment of ${formatter.format(amount)} received! \nOur admin will verify your Momo PSB transfer shortly.`);
+            closeModal();
+        }
+    </script>
+</body>
+</html>
