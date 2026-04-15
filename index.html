@@ -131,4 +131,31 @@
         }
     </script>
 </body>
-</html>
+</html><script type="module">
+  // Connecting your notice board to the storehouse
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // These are your unique keys from earlier
+  const firebaseConfig = {
+    apiKey: "AIzaSyA-xo7tUpDwbkW393Ma...", 
+    authDomain: "estate-threads.firebaseapp.com",
+    projectId: "estate-threads",
+    storageBucket: "estate-threads.appspot.com",
+    messagingSenderId: "369916457210",
+    appId: "1:369916457210:web:aaa4e2..."
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // This function tells the site: "Go get the 3-bedroom flat info!"
+  async function loadData() {
+    const querySnapshot = await getDocs(collection(db, "properties"));
+    querySnapshot.forEach((doc) => {
+      console.log("Found data:", doc.data());
+      // We'll add one more line later to make it show on the screen
+    });
+  }
+  loadData();
+</script>
