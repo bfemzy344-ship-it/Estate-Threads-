@@ -49,7 +49,7 @@
 
     <section id="listings" class="max-w-6xl mx-auto px-6 pb-20">
         <h2 class="text-3xl font-heading mb-10">Available Assets</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="property-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 group hover:border-gold-500 transition-all duration-500">
                 <div class="h-64 bg-zinc-800 relative overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
@@ -136,7 +136,10 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  // These are your unique keys from earlier
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
   const firebaseConfig = {
     apiKey: "AIzaSyA-xo7tUpDwbkW393Ma...", 
     authDomain: "estate-threads.firebaseapp.com",
@@ -149,12 +152,35 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // This function tells the site: "Go get the 3-bedroom flat info!"
   async function loadData() {
     const querySnapshot = await getDocs(collection(db, "properties"));
+    const listContainer = document.getElementById('property-list');
+    
+    // Clear the "hardcoded" sample house first
+    listContainer.innerHTML = '';
+
     querySnapshot.forEach((doc) => {
-      console.log("Found data:", doc.data());
-      // We'll add one more line later to make it show on the screen
+      const data = doc.data();
+      
+      // This creates the HTML for each house card
+      listContainer.innerHTML += `
+        <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 group hover:border-gold-500 transition-all duration-500">
+            <div class="h-64 bg-zinc-800 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-gold-500 px-3 py-1 rounded-full text-xs font-bold uppercase">Active Asset</span>
+            </div>
+            <div class="p-8">
+                <h3 class="text-xl font-heading mb-2">${data.title}</h3>
+                <p class="text-zinc-500 text-sm mb-6">${data.location}</p>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <p class="text-zinc-500 text-xs uppercase mb-1">Share Price</p>
+                        <p class="text-2xl font-bold text-white">₦${Number(data.price).toLocaleString()}</p>
+                    </div>
+                    <button onclick="openModal('${data.title}', ${data.price})" class="btn-gold text-black px-6 py-2 rounded-full text-sm font-bold">Invest</button>
+                </div>
+            </div>
+        </div>`;
     });
   }
   loadData();
