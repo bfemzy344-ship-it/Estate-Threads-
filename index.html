@@ -130,43 +130,36 @@
             closeModal();
         }
     </script>
-</body>
-</html><script type="module">
-  // Connecting your notice board to the storehouse
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
- <script type="module">
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
-    apiKey: "AIzaSyA-xo7tUpDwbkW393Ma...", 
+    apiKey: "AIzaSyA-xo7tUpDwbkW393MaXoT3BaYO9kQ7dJY", 
     authDomain: "estate-threads.firebaseapp.com",
     projectId: "estate-threads",
     storageBucket: "estate-threads.appspot.com",
     messagingSenderId: "369916457210",
-    appId: "1:369916457210:web:aaa4e2..."
+    appId: "1:369916457210:web:aaa4e2c7ce27a289e29943" 
   };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
   async function loadData() {
-    const querySnapshot = await getDocs(collection(db, "properties"));
     const listContainer = document.getElementById('property-list');
+    const querySnapshot = await getDocs(collection(db, "properties"));
     
-    // Clear the "hardcoded" sample house first
+    // This clears the "Eko Thread Towers" placeholder
     listContainer.innerHTML = '';
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      
-      // This creates the HTML for each house card
       listContainer.innerHTML += `
         <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 group hover:border-gold-500 transition-all duration-500">
             <div class="h-64 bg-zinc-800 relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                <img src="${data.image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
                 <span class="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-gold-500 px-3 py-1 rounded-full text-xs font-bold uppercase">Active Asset</span>
             </div>
             <div class="p-8">
@@ -177,7 +170,7 @@
                         <p class="text-zinc-500 text-xs uppercase mb-1">Share Price</p>
                         <p class="text-2xl font-bold text-white">₦${Number(data.price).toLocaleString()}</p>
                     </div>
-                    <button onclick="openModal('${data.title}', ${data.price})" class="btn-gold text-black px-6 py-2 rounded-full text-sm font-bold">Invest</button>
+                    <button class="btn-gold text-black px-6 py-2 rounded-full text-sm font-bold">Invest</button>
                 </div>
             </div>
         </div>`;
@@ -185,3 +178,5 @@
   }
   loadData();
 </script>
+</body>
+</html>
